@@ -3,7 +3,7 @@ import dclab
 import ckan.lib.datapreview as datapreview
 import ckan.plugins as p
 
-from dcor_shared import DC_MIME_TYPES, get_dataset_path
+from dcor_shared import DC_MIME_TYPES, get_resource_path
 
 
 class DCLogViewPlugin(p.SingletonPlugin):
@@ -38,7 +38,7 @@ class DCLogViewPlugin(p.SingletonPlugin):
     def setup_template_variables(self, context, data_dict):
         # get the local resource location
         resource = data_dict['resource']
-        path = get_dataset_path(context, resource)
+        path = get_resource_path(resource["id"])
         # extract the logs
         logs = {}
         with dclab.new_dataset(path) as ds:
