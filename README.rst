@@ -13,7 +13,8 @@ Installation
 
 
 Add this extension to the plugins and defaul_views in ckan.ini:
-```
-ckan.plugins = [...] dc_log_view
-ckan.views.default_views = [...] dc_log_view
-```
+
+::
+
+    ckan.plugins = [...] dc_log_view
+    ckan.views.default_views = [...] dc_log_view
