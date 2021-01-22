@@ -32,7 +32,4 @@ jobs:
     - name: Lint with flake8
       run: |
         flake8 .
-    - name: Submit code coverage
-      run: |
-        coverage report -m
-        codecov
+
