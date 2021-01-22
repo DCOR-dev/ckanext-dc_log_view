@@ -10,7 +10,7 @@ name = 'ckanext-dc_log_view'
 year = "2020"
 
 sys.path.insert(0, realpath(dirname(__file__))+"/" + "/".join(name.split("-")))
-from _version import version
+from _version import version  # noqa: E402
 
 
 setup(
