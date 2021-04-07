@@ -1,3 +1,5 @@
+0.2.7
+ - ci: fix coverage stats
 0.2.6
  - tests: run tests with vagrant
 0.2.5
