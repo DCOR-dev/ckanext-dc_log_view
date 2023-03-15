@@ -47,7 +47,7 @@ following commands in the root of this repository:
 
 .. |PyPI Version| image:: https://img.shields.io/pypi/v/ckanext.dc_log_view.svg
    :target: https://pypi.python.org/pypi/ckanext.dc_log_view
-.. |Build Status| image:: https://img.shields.io/github/workflow/status/DCOR-dev/ckanext-dc_log_view/Checks
+.. |Build Status| image:: https://img.shields.io/github/actions/workflow/status/DCOR-dev/ckanext-dc_log_view/check.yml
    :target: https://github.com/DCOR-dev/ckanext-dc_log_view/actions?query=workflow%3AChecks
 .. |Coverage Status| image:: https://img.shields.io/codecov/c/github/DCOR-dev/ckanext-dc_log_view
    :target: https://codecov.io/gh/DCOR-dev/ckanext-dc_log_view
