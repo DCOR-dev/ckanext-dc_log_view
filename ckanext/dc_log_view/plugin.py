@@ -7,7 +7,7 @@ from dcor_shared import DC_MIME_TYPES, get_resource_path
 
 
 class DCLogViewPlugin(p.SingletonPlugin):
-    '''This plugin makes log views of DC data'''
+    """This plugin makes log views of DC data"""
     p.implements(p.IConfigurer, inherit=True)
     p.implements(p.IResourceView, inherit=True)
 
