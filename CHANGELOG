@@ -1,3 +1,6 @@
+0.4.0
+ - ref: migrate to dcor_shared 0.7.3
+ - tests: add tests
 0.3.3
  - maintenance release
 0.3.2
