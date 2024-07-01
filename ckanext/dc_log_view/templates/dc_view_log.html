@@ -12,10 +12,10 @@ Click on the log titles below to expand the log entries present in this DC resou
 
 	{% for keyval in logs|dictsort %}
 	<details class="dc_log_view">
-    	<summary class="dc_log_view">{{ keyval[0] }}</summary>
+    	<summary class="dc_log_view">{{ keyval[0]|e }}</summary>
     	<span class="dc_log_view">
 			{% for line in logs[keyval[0]] %}
-				{{ line }}<br>
+				{{ line|e }}<br>
 			{% endfor %}
 		</span>
 	</details>
