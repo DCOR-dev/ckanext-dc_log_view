@@ -5,23 +5,23 @@
 {% if logs %}
 
 <p>
-Use the tab-control below to browse all logs present in this DC resource.
+Click on the log titles below to expand the log entries present in this DC resource.
 </p>
 
-<!-- Tabs -->
-    <div class="w3c">
- {% for keyval in logs|dictsort %}
-	<div id="{{ keyval[0] }}">
-	<a href="#{{ keyval[0] }}">{{ keyval[0] }}</a>
-	<div>
-<pre>
-{% for line in logs[keyval[0]] %}{{ line }}
-{% endfor %}
-</pre>
-	</div>
-	</div>
- {% endfor %}
-    </div>
+<div class="dcor-log-view">
+
+	{% for keyval in logs|dictsort %}
+	<details class="dc_log_view">
+    	<summary class="dc_log_view">{{ keyval[0] }}</summary>
+    	<span class="dc_log_view">
+			{% for line in logs[keyval[0]] %}
+				{{ line }}<br>
+			{% endfor %}
+		</span>
+	</details>
+	{% endfor %}
+
+</div>
 
 {% else %}
 <p>
