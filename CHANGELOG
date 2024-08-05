@@ -1,3 +1,5 @@
+0.5.2
+ - setup: bring back pkg-util namespace __init__.py
 0.5.1
  - build: fix CI pipeline
 0.5.0
