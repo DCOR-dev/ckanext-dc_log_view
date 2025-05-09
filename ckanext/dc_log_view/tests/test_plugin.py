@@ -4,11 +4,10 @@ from unittest import mock
 
 import ckan.tests.factories as factories
 import ckanext.dc_log_view.plugin as plugin  # noqa: F401
-import ckanext.dcor_schemas.plugin
 
 import dclab
 from dcor_shared.testing import (
-    make_dataset, synchronous_enqueue_job)
+    make_dataset_via_s3, make_resource_via_s3, synchronous_enqueue_job)
 
 import pytest
 
@@ -25,12 +24,7 @@ def test_plugin_info():
 @pytest.mark.usefixtures('clean_db', 'with_request_context')
 @mock.patch('ckan.plugins.toolkit.enqueue_job',
             side_effect=synchronous_enqueue_job)
-def test_plugin_can_view(enqueue_job_mock, create_with_upload, monkeypatch):
-    # prerequisites
-    monkeypatch.setattr(
-        ckanext.dcor_schemas.plugin,
-        'DISABLE_AFTER_DATASET_CREATE_FOR_CONCURRENT_JOB_TESTS',
-        True)
+def test_plugin_can_view(enqueue_job_mock, tmp_path):
     user = factories.User()
     owner_org = factories.Organization(users=[{
         'name': user['id'],
@@ -40,16 +34,17 @@ def test_plugin_can_view(enqueue_job_mock, create_with_upload, monkeypatch):
                       'user': user['name'],
                       'api_version': 3}
     # create dataset with .rtdc file
-    ds_dict, res_dict_dc = make_dataset(
-        create_context, owner_org,
-        create_with_upload=create_with_upload,
+    ds_dict, res_dict_dc = make_dataset_via_s3(
+        create_context,
+        owner_org=owner_org,
         resource_path=data_path / "calibration_beads_47.rtdc",
         activate=False)
     # Add a text file
-    res_dict_text = create_with_upload(
-        b"just some text", 'test.txt',
-        url="upload",
-        package_id=ds_dict["id"],
+    path_text = tmp_path / "test.txt"
+    res_dict_text = make_resource_via_s3(
+        resource_path=path_text,
+        organization_id=owner_org["id"],
+        dataset_id=ds_dict["id"],
         context=create_context,
     )
 
@@ -64,7 +59,7 @@ def test_plugin_can_view(enqueue_job_mock, create_with_upload, monkeypatch):
 @mock.patch('ckan.plugins.toolkit.enqueue_job',
             side_effect=synchronous_enqueue_job)
 def test_plugin_setup_template_variables(
-        enqueue_job_mock, create_with_upload, monkeypatch, tmp_path):
+        enqueue_job_mock, tmp_path):
     path_in = tmp_path / "test.rtdc"
     shutil.copy2(data_path / "calibration_beads_47.rtdc", path_in)
 
@@ -76,11 +71,6 @@ def test_plugin_setup_template_variables(
     with dclab.new_dataset(path_in) as ds:
         assert ds.logs["peter"][0] == "pferde im gurkensalat"
 
-    # prerequisites
-    monkeypatch.setattr(
-        ckanext.dcor_schemas.plugin,
-        'DISABLE_AFTER_DATASET_CREATE_FOR_CONCURRENT_JOB_TESTS',
-        True)
     user = factories.User()
     owner_org = factories.Organization(users=[{
         'name': user['id'],
@@ -90,9 +80,9 @@ def test_plugin_setup_template_variables(
                       'user': user['name'],
                       'api_version': 3}
     # create dataset with .rtdc file
-    ds_dict, res_dict = make_dataset(
-        create_context, owner_org,
-        create_with_upload=create_with_upload,
+    ds_dict, res_dict = make_dataset_via_s3(
+        create_context,
+        owner_org=owner_org,
         resource_path=path_in,
         activate=True)
 
