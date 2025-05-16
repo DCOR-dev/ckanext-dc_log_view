@@ -1,3 +1,5 @@
+0.5.7
+ - ci: update GitHub Actions workflow to use Docker for testing
 0.5.6
  - maintenance release
 0.5.3
