@@ -35,7 +35,7 @@ def test_plugin_can_view(enqueue_job_mock, tmp_path):
                       'api_version': 3}
     # create dataset with .rtdc file
     ds_dict, res_dict_dc = make_dataset_via_s3(
-        create_context,
+        create_context=create_context,
         owner_org=owner_org,
         resource_path=data_path / "calibration_beads_47.rtdc",
         activate=False)
@@ -45,7 +45,7 @@ def test_plugin_can_view(enqueue_job_mock, tmp_path):
         resource_path=path_text,
         organization_id=owner_org["id"],
         dataset_id=ds_dict["id"],
-        context=create_context,
+        create_context=create_context,
     )
 
     # test can_view for .rtdc data
@@ -81,7 +81,7 @@ def test_plugin_setup_template_variables(
                       'api_version': 3}
     # create dataset with .rtdc file
     ds_dict, res_dict = make_dataset_via_s3(
-        create_context,
+        create_context=create_context,
         owner_org=owner_org,
         resource_path=path_in,
         activate=True)
