@@ -21,7 +21,7 @@ def test_plugin_info():
 
 
 @pytest.mark.ckan_config('ckan.plugins', 'dcor_depot dcor_schemas')
-@pytest.mark.usefixtures('clean_db')
+@pytest.mark.usefixtures('clean_db', 'with_request_context')
 @mock.patch('ckan.plugins.toolkit.enqueue_job',
             side_effect=synchronous_enqueue_job)
 def test_plugin_can_view(enqueue_job_mock, tmp_path):
@@ -60,7 +60,7 @@ def test_plugin_can_view(enqueue_job_mock, tmp_path):
 
 
 @pytest.mark.ckan_config('ckan.plugins', 'dcor_depot dcor_schemas')
-@pytest.mark.usefixtures('clean_db')
+@pytest.mark.usefixtures('clean_db', 'with_request_context')
 @mock.patch('ckan.plugins.toolkit.enqueue_job',
             side_effect=synchronous_enqueue_job)
 def test_plugin_setup_template_variables(
