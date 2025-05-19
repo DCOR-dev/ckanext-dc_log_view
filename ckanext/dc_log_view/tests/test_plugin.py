@@ -2,6 +2,7 @@ import pathlib
 import shutil
 from unittest import mock
 
+import ckan.model
 import ckan.tests.factories as factories
 import ckanext.dc_log_view.plugin as plugin  # noqa: F401
 
@@ -21,17 +22,19 @@ def test_plugin_info():
 
 
 @pytest.mark.ckan_config('ckan.plugins', 'dcor_depot dcor_schemas')
-@pytest.mark.usefixtures('clean_db', 'with_request_context')
+@pytest.mark.usefixtures('clean_db')
 @mock.patch('ckan.plugins.toolkit.enqueue_job',
             side_effect=synchronous_enqueue_job)
 def test_plugin_can_view(enqueue_job_mock, tmp_path):
     user = factories.User()
+    user_obj = ckan.model.User.by_name(user["name"])
     owner_org = factories.Organization(users=[{
         'name': user['id'],
         'capacity': 'admin'
     }])
     create_context = {'ignore_auth': False,
                       'user': user['name'],
+                      'auth_user_obj': user_obj,
                       'api_version': 3}
     # create dataset with .rtdc file
     ds_dict, res_dict_dc = make_dataset_via_s3(
