@@ -51,6 +51,8 @@ def test_plugin_can_view(enqueue_job_mock, tmp_path):
 
     # test can_view for .rtdc data
     p = plugin.DCLogViewPlugin()
+    print("RTDC ID", res_dict_dc["id"])
+    print("TEXT ID", res_dict_text["id"])
     assert p.can_view({"resource": res_dict_dc})
     assert not p.can_view({"resource": res_dict_text})
 
