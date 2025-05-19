@@ -46,7 +46,6 @@ def test_plugin_can_view(enqueue_job_mock, tmp_path):
         resource_path=path_text,
         organization_id=owner_org["id"],
         dataset_id=ds_dict["id"],
-        create_context=create_context,
     )
 
     # test can_view for .rtdc data
