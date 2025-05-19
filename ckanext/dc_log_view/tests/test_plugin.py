@@ -53,6 +53,8 @@ def test_plugin_can_view(enqueue_job_mock, tmp_path):
     p = plugin.DCLogViewPlugin()
     print("RTDC ID", res_dict_dc["id"])
     print("TEXT ID", res_dict_text["id"])
+    for key in res_dict_text:
+        print("TEXT", key, res_dict_text[key])
     assert p.can_view({"resource": res_dict_dc})
     assert not p.can_view({"resource": res_dict_text})
 
