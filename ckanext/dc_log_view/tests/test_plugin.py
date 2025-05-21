@@ -20,7 +20,7 @@ def test_plugin_info():
     assert info["name"] == "dc_log_view"
 
 
-@pytest.mark.ckan_config('ckan.plugins', 'dcor_depot dcor_schemas')
+@pytest.mark.ckan_config('ckan.plugins', 'dcor_schemas')
 @pytest.mark.usefixtures('clean_db', 'with_request_context')
 @mock.patch('ckan.plugins.toolkit.enqueue_job',
             side_effect=synchronous_enqueue_job)
@@ -59,7 +59,7 @@ def test_plugin_can_view(enqueue_job_mock, tmp_path):
     assert not p.can_view({"resource": res_dict_text})
 
 
-@pytest.mark.ckan_config('ckan.plugins', 'dcor_depot dcor_schemas')
+@pytest.mark.ckan_config('ckan.plugins', 'dcor_schemas')
 @pytest.mark.usefixtures('clean_db', 'with_request_context')
 @mock.patch('ckan.plugins.toolkit.enqueue_job',
             side_effect=synchronous_enqueue_job)
