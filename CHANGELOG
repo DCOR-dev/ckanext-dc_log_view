@@ -1,4 +1,6 @@
 1.0.1
+ - fix: compatibility with setuptools>=82 (no `pkg_resources`),
+   which is shipped with CKAN 2.11.6
  - tests: own the docker image
 1.0.0
  - declare first stable release
